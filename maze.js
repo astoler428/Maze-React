@@ -39,39 +39,60 @@ function createMaze() {
   horzWalls = [];
   createBorderWalls();
   createWalls();
-  buildMaze();
+  buildMazeHard();
   drawWalls();
 }
 
-function buildMaze() {
+//stops when there exists a path from start to finish
+
+function buildMazeEasy() {
   while (unionFind.find(0) !== unionFind.find(NUM_ROWS * NUM_COLS - 1)) {
-    let wallDirection = Math.floor(Math.random() * 2) === 0 ? "horz" : "vert";
+    removeRandomWall();
+  }
+}
 
-    //randomly choose horizontal or vertical
-    //don't allow it to be empty
-    let directionWalls;
-    do {
-      directionWalls =
-        Math.floor(Math.random() * 2) === 0 ? horzWalls : vertWalls;
-    } while (directionWalls.length === 0);
+//stops when all cells are connected - creating lots of false paths
+function buildMazeHard() {
+  while (!allCellsConnected()) {
+    removeRandomWall();
+  }
+}
 
-    let wallIdx = Math.floor(Math.random() * directionWalls.length);
-    let cellNum = findCell(directionWalls[wallIdx]);
-    //depending on vorizontal or vertical, determine what neighboring cell is
-    let otherCellNum =
-      directionWalls === horzWalls ? cellNum - NUM_ROWS : cellNum - 1;
+function allCellsConnected() {
+  let root = unionFind.find(0);
+  for (let i = 1; i < NUM_ROWS * NUM_COLS; i++)
+    if (unionFind.find(i) !== root) return false;
 
-    if (unionFind.find(cellNum) !== unionFind.find(otherCellNum)) {
-      unionFind.union(cellNum, otherCellNum);
-      if (directionWalls === horzWalls)
-        horzWalls = directionWalls.filter(
-          (element) => element !== directionWalls[wallIdx]
-        );
-      else
-        vertWalls = directionWalls.filter(
-          (element) => element !== directionWalls[wallIdx]
-        );
-    }
+  return true;
+}
+
+function removeRandomWall() {
+  let wallDirection = Math.floor(Math.random() * 2) === 0 ? "horz" : "vert";
+
+  //randomly choose horizontal or vertical
+  //don't allow it to be empty
+  let directionWalls;
+  do {
+    directionWalls =
+      Math.floor(Math.random() * 2) === 0 ? horzWalls : vertWalls;
+  } while (directionWalls.length === 0);
+
+  let wallIdx = Math.floor(Math.random() * directionWalls.length);
+  let cellNum = findCell(directionWalls[wallIdx]);
+  //depending on vorizontal or vertical, determine what neighboring cell is
+  let otherCellNum =
+    directionWalls === horzWalls ? cellNum - NUM_ROWS : cellNum - 1;
+
+  if (unionFind.find(cellNum) !== unionFind.find(otherCellNum)) {
+    unionFind.union(cellNum, otherCellNum);
+    if (directionWalls === horzWalls)
+      horzWalls = directionWalls.filter(
+        (element) => element !== directionWalls[wallIdx]
+      );
+    else
+      vertWalls = directionWalls.filter(
+        (element) => element !== directionWalls[wallIdx]
+      );
   }
 }
 
