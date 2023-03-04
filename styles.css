@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+  color: red;
+}
+
+.canvas-container {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+input {
+  width: 30px;
+}
+
+button {
+  margin: 0 10px;
+}
