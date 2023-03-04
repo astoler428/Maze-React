@@ -1,13 +1,5 @@
 import { UnionFind } from "./union-find.js";
 
-// let slider = document.getElementById("myRange");
-
-// slider.addEventListener("input", adjust);
-
-// function adjust() {
-//   console.log(slider.value);
-// }
-
 let rowInput = document.getElementById("rows");
 let colInput = document.getElementById("cols");
 let createMazeBtn = document.getElementById("create-maze-btn");
@@ -19,7 +11,7 @@ let ctx = mazeCanvas.getContext("2d");
 
 let NUM_ROWS;
 let NUM_COLS;
-let UNIT_SIZE = 25;
+let UNIT_SIZE; //previous = 25;
 let unionFind;
 let horzBorderWalls;
 let vertBorderWalls;
@@ -32,14 +24,13 @@ function createMaze() {
     isNaN(rowInput.value) ||
     isNaN(colInput.value) ||
     rowInput.value <= 0 ||
-    colInput.val <= 0 ||
-    rowInput.value > MAZE_DIMENSION / UNIT_SIZE ||
-    colInput.value > MAZE_DIMENSION / UNIT_SIZE
+    colInput.val <= 0
   )
     return;
   ctx.clearRect(0, 0, MAZE_DIMENSION, MAZE_DIMENSION);
   NUM_ROWS = rowInput.value;
   NUM_COLS = colInput.value;
+  UNIT_SIZE = MAZE_DIMENSION / Math.max(NUM_ROWS, NUM_COLS);
   unionFind = new UnionFind(NUM_ROWS * NUM_COLS);
   horzBorderWalls = [];
   vertBorderWalls = [];
