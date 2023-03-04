@@ -7,11 +7,3 @@
   display: flex;
   justify-content: center;
 }
-
-input {
-  width: 30px;
-}
-
-button {
-  margin: 0 10px;
-}

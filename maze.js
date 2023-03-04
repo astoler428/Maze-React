@@ -13,10 +13,10 @@ let NUM_ROWS;
 let NUM_COLS;
 let UNIT_SIZE; //previous = 25;
 let unionFind;
-let horzBorderWalls;
-let vertBorderWalls;
-let vertWalls;
-let horzWalls;
+let horzBorderWalls = [];
+let vertBorderWalls = [];
+let vertWalls = [];
+let horzWalls = [];
 const MAZE_DIMENSION = 600; //previously
 
 function createMaze() {
@@ -32,11 +32,7 @@ function createMaze() {
   NUM_COLS = colInput.value;
   UNIT_SIZE = MAZE_DIMENSION / Math.max(NUM_ROWS, NUM_COLS);
   unionFind = new UnionFind(NUM_ROWS * NUM_COLS);
-  horzBorderWalls = [];
-  vertBorderWalls = [];
 
-  vertWalls = [];
-  horzWalls = [];
   createBorderWalls();
   createWalls();
   buildMazeHard();
