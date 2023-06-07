@@ -1,0 +1,9 @@
+* {
+  box-sizing: border-box;
+}
+
+.canvas-container {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
