@@ -1,3 +1,5 @@
+//Disjoint Set data structure aka union find
+
 export class UnionFind {
   array = [];
 
